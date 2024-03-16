@@ -25,3 +25,12 @@ let tsurukame_no_ashi x y = x *2 + y * 4
 let test1 = tsurukame_no_ashi 1 1 = 6
 let test2 = tsurukame_no_ashi 3 2 = 14 
 let test3 = tsurukame_no_ashi 0 2 = 8 
+
+(* 4.8 *)
+(* 目的:鶴と亀の数の合計xと足の数の合計yに応じる鶴の数を計算する *)
+(* tsurukame: int -> int -> int *)
+let tsurukame x y = 2*x - y/2
+
+let test1 = tsurukame 2 6 = 1 
+let test2 = tsurukame 5 12 = 4
+let test3 = tsurukame 6 12 = 6
