@@ -9,7 +9,7 @@ let kihonkyu = 100
 
 (* 目的:働いた時間xに応じたアルバイト代を計算する *)
 (* kyuyo: int -> int *)
-let kyuyo x = if x < 30 then kihonkyu + x * jikyu else kihonkyu + x * yugu_jikyu 
+let kyuyo x = kihonkyu + x * (if x < 30 then jikyu else yugu_jikyu)
 
 (* テスト *)
 let test1 = kyuyo 25 = 23850
