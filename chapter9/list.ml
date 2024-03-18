@@ -17,3 +17,6 @@ let persons =
         ::{name="山田"; height=1.5; weight=41.0; birth=(9, 12); blood="AB"}
         ::{name="佐藤"; height=1.75; weight=61.0; birth=(11, 2); blood="O"}
         ::[]
+
+(* 問題9.3 *)
+let season = ["春"; "夏"; "秋"; "冬"]
