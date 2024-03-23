@@ -29,13 +29,13 @@ let rec shukei lst =
   | [] -> 0, 0, 0, 0
   | { namae = n; tensuu = t; seiseki = s } :: rest ->
     let a, b, c, d = shukei rest in
-       if s = "A"
-       then a + 1, b, c, d
-       else if s = "B"
-       then a, b + 1, c, d
-       else if s = "C"
-       then a, b, c + 1, d
-       else a, b, c, d + 1
+    if s = "A"
+    then a + 1, b, c, d
+    else if s = "B"
+    then a, b + 1, c, d
+    else if s = "C"
+    then a, b, c + 1, d
+    else a, b, c, d + 1
 ;;
 
 (* tests *)
