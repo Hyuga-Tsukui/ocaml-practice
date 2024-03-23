@@ -25,9 +25,10 @@ let rec gakusei_max lst =
   match lst with
   | [] -> { namae = ""; tensuu = 0; seiseki = "" }
   | ({ namae = n; tensuu = t; seiseki = s } as first) :: rest ->
-    (match gakusei_max rest with
+    let max_rest = gakusei_max rest in
+    (match max_rest with
      | { namae = n_max; tensuu = t_max; seiseki = s_max } ->
-       if t_max < t then first else gakusei_max rest)
+       if t_max < t then first else max_rest)
 ;;
 
 let test1 = gakusei_max lst1 = { namae = "kaneko"; tensuu = 85; seiseki = "A" }
