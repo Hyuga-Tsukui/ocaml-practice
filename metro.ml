@@ -419,3 +419,46 @@ let test1_get_ekikan_kyori = get_ekikan_kyori "茗荷谷" "新大塚" global_eki
 let test2_get_ekikan_kyori = get_ekikan_kyori "新大塚" "茗荷谷" global_ekikan_list = 1.2
 
 let test3_get_ekikan_kyori = get_ekikan_kyori "本郷三丁目" "茗荷谷" global_ekikan_list = infinity
+
+(* 目的: 2つの駅名（ローマ字）から2駅間の距離を調べ、表示する *)
+(* kyori_wo_hyouji : string -> string -> ekimei_t list -> ekikan_t list -> string *)
+let kyori_wo_hyouji s1 s2 ekimei_lst ekikan_lst =
+  let s1_kanji = romaji_to_kanji s1 ekimei_lst in
+  if s1_kanji = ""
+  then s1 ^ " という駅は存在しません"
+  else (
+    let s2_kanji = romaji_to_kanji s2 ekimei_lst in
+    if s2_kanji = ""
+    then s2 ^ " という駅は存在しません"
+    else (
+      let ekikan_kyori = get_ekikan_kyori s1_kanji s2_kanji ekikan_lst in
+      if ekikan_kyori = infinity
+      then s1_kanji ^ "駅と" ^ s2_kanji ^ "駅はつながっていません"
+      else s1_kanji ^ "駅から" ^ s2_kanji ^ "駅までは " ^ string_of_float ekikan_kyori ^ " Km です"))
+;;
+
+(* tests *)
+let test1_kyori_wo_hyouji =
+  kyori_wo_hyouji "myogadani" "shinotsuka" global_ekimei_list global_ekikan_list
+  = "茗荷谷駅から新大塚駅までは 1.2 Km です"
+;;
+
+let test2_kyori_wo_hyouji =
+  kyori_wo_hyouji "shinotsuka" "myogadani" global_ekimei_list global_ekikan_list
+  = "新大塚駅から茗荷谷駅までは 1.2 Km です"
+;;
+
+let test3_kyori_wo_hyouji =
+  kyori_wo_hyouji "unknown" "myogadani" global_ekimei_list global_ekikan_list
+  = "unknown という駅は存在しません"
+;;
+
+let test4_kyori_wo_hyouji =
+  kyori_wo_hyouji "myogadani" "unknown" global_ekimei_list global_ekikan_list
+  = "unknown という駅は存在しません"
+;;
+
+let test5_kyori_wo_hyouji =
+  kyori_wo_hyouji "shinotsuka" "ochanomizu" global_ekimei_list global_ekikan_list
+  = "新大塚駅と御茶ノ水駅はつながっていません"
+;;
