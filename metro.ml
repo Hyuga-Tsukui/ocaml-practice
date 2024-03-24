@@ -422,14 +422,17 @@ let test3_get_ekikan_kyori = get_ekikan_kyori "本郷三丁目" "茗荷谷" glob
 
 (* 目的: 2つの駅名（ローマ字）から2駅間の距離を調べ、表示する *)
 (* kyori_wo_hyouji : string -> string -> ekimei_t list -> ekikan_t list -> string *)
+
+let unknown_disp s = s ^ " という駅は存在しません"
+
 let kyori_wo_hyouji s1 s2 ekimei_lst ekikan_lst =
   let s1_kanji = romaji_to_kanji s1 ekimei_lst in
   if s1_kanji = ""
-  then s1 ^ " という駅は存在しません"
+  then unknown_disp s1
   else (
     let s2_kanji = romaji_to_kanji s2 ekimei_lst in
     if s2_kanji = ""
-    then s2 ^ " という駅は存在しません"
+    then unknown_disp s2
     else (
       let ekikan_kyori = get_ekikan_kyori s1_kanji s2_kanji ekikan_lst in
       if ekikan_kyori = infinity
