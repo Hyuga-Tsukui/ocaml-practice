@@ -401,3 +401,21 @@ let test1_romaji_to_kanji = romaji_to_kanji "myogadani" global_ekimei_list = "�
 let test2_romaji_to_kanji = romaji_to_kanji "" global_ekimei_list = ""
 let test3_romaji_to_kanji = romaji_to_kanji "myogadani" [] = ""
 let test4_romaji_to_kanji = romaji_to_kanji "" [] = ""
+
+(* 目的: 2つの駅名（漢字）と 駅間リスト を受取り、2駅間の距離を返す *)
+(* get_ekikan_kyori : string -> string -> ekikan_t list -> float *)
+let rec get_ekikan_kyori s1 s2 ekikan_lst =
+  match ekikan_lst with
+  | [] -> infinity
+  | { kiten; shuten; kyori } :: rest ->
+    if (s1 = kiten && s2 = shuten) || (s2 = kiten && s1 = shuten)
+    then kyori
+    else get_ekikan_kyori s1 s2 rest
+;;
+
+(* tests *)
+let test1_get_ekikan_kyori = get_ekikan_kyori "茗荷谷" "新大塚" global_ekikan_list = 1.2
+
+let test2_get_ekikan_kyori = get_ekikan_kyori "新大塚" "茗荷谷" global_ekikan_list = 1.2
+
+let test3_get_ekikan_kyori = get_ekikan_kyori "本郷三丁目" "茗荷谷" global_ekikan_list = infinity
