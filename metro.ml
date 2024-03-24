@@ -386,3 +386,18 @@ let test1 =
   hyoji { kanji = "茗荷谷"; kana = "みょうがだに"; romaji = "myogadani"; shozoku = "丸ノ内線" }
   = "丸ノ内線,茗荷谷（みょうがだに）"
 ;;
+
+(* 目的: ローマ字の駅名と駅名リストを受取り、ローマ字に対応する駅の漢字表記を返す *)
+(* romaji_to_kanji : string -> ekimei_t list -> string *)
+let rec romaji_to_kanji romaji lst =
+  match lst with
+  | [] -> ""
+  | { kanji = kan; kana = kna; romaji = rm; shozoku = s } :: rest ->
+    if romaji = rm then kan else romaji_to_kanji romaji rest
+;;
+
+(* tests *)
+let test1_romaji_to_kanji = romaji_to_kanji "myogadani" global_ekimei_list = "茗荷谷"
+let test2_romaji_to_kanji = romaji_to_kanji "" global_ekimei_list = ""
+let test3_romaji_to_kanji = romaji_to_kanji "myogadani" [] = ""
+let test4_romaji_to_kanji = romaji_to_kanji "" [] = ""
